@@ -32,7 +32,11 @@ class SecurityController
             $password = $_POST['password'];
             if (ValidationUtils::isEmpty($username) || ValidationUtils::isEmpty($password)) {
                 $_SESSION['returnStatus'] = Config::STATUS_WARNING;
-                $_SESSION['returnMessage'] = Messages::get('username.password.empty');
+                $_SESSION['returnMessage'] = Messages::get('error.username.password.empty');
+                RedirectionUtils::refreshPage(self::REFRESH_TIME_ZERO);
+            } else if ($this->userService->usernameExists($username)) {
+                $_SESSION['returnStatus'] = Config::STATUS_WARNING;
+                $_SESSION['returnMessage'] = Messages::get('error.username.taken');
                 RedirectionUtils::refreshPage(self::REFRESH_TIME_ZERO);
             } else {
                 $newUser = new User($username, $password, Config::DEFAULT_ROLE);

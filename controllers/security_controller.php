@@ -37,8 +37,16 @@ class SecurityController
             ) {
                 MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.username.wrong.length'));
                 RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            } else if (!ValidationUtils::hasCorrectLength(Config::MIN_PASS_LENGTH, Config::MAX_PASS_LENGTH,
+                $password)
+            ) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.password.wrong.length'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
             } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_USERNAME, $username)) {
                 MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.username.wrong.pattern'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_PASSWORD, $password)) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.password.wrong.pattern'));
                 RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
             } else if ($this->userService->usernameExists($username)) {
                 MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.username.taken'));

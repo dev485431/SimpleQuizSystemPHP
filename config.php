@@ -17,7 +17,8 @@ class Config
     const DEFAULT_ROLE = 'user';
     const MIN_USERNAME_LENGTH = 3;
     const MAX_USERNAME_LENGTH = 20;
-
+    const MIN_PASS_LENGTH = 8;
+    const MAX_PASS_LENGTH = 25;
 
 }
 

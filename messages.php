@@ -14,9 +14,12 @@ class Messages
         'error.adding.user' => 'Unable to add new user. Try again later.',
         'error.already.signed.in' => 'You are already signed in',
         'error.username.taken' => 'This username is already taken',
-        'error.username.wrong.pattern' => 'Username can contain only letters, numbers, underscores and dashes',
         'error.username.wrong.length' => 'Username length must be between ' . Config::MIN_USERNAME_LENGTH . ' and ' .
-            Config::MAX_USERNAME_LENGTH . ' characters'
+            Config::MAX_USERNAME_LENGTH . ' characters',
+        'error.username.wrong.pattern' => 'Username can contain only letters, numbers, underscores and dashes',
+        'error.password.wrong.length' => 'Password length must be between ' . Config::MIN_PASS_LENGTH . ' and ' .
+            Config::MAX_PASS_LENGTH . ' characters',
+        'error.password.wrong.pattern' => 'Password must contain at least one lowercase character, uppercase character, digit and special character'
     );
 
     public static function get($key)

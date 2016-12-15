@@ -9,15 +9,31 @@ class SecurityController
         $this->userService = new UserService();
     }
 
-    public function logIn()
+    public function signIn()
     {
-
-    }
-
-    public function logOut()
-    {
-        session_destroy();
-        RedirectionUtils::redirectTo(Config::APP_ROOT);
+        if ($this->isUserAlreadySignedIn()) {
+            MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.already.signed.in'));
+            RedirectionUtils::redirectTo(Config::APP_ROOT);
+        } else if (isset($_POST['username']) || isset($_POST['password'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            if (ValidationUtils::isEmpty($username) || ValidationUtils::isEmpty($password)) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.username.password.empty'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            } else {
+                $user = $this->userService->authorizeUser($username, $password);
+                if ($user) {
+                    $_SESSION['username'] = $user->getUsername();
+                    $_SESSION['role'] = $user->getRole();
+                    MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.log.in'));
+                    RedirectionUtils::redirectTo(Config::APP_ROOT);
+                } else {
+                    MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.wrong.username.password'));
+                    RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+                }
+            }
+        }
+        require_once('views/security/signin.php');
     }
 
     public function signUp()
@@ -66,6 +82,12 @@ class SecurityController
             }
         }
         require_once('views/security/signup.php');
+    }
+
+    public function logOut()
+    {
+        session_destroy();
+        RedirectionUtils::redirectTo(Config::APP_ROOT);
     }
 
     private function isUserAlreadySignedIn()

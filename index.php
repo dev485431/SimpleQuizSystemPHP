@@ -3,6 +3,7 @@ require_once('config.php');
 require_once('messages.php');
 require_once('db.php');
 require_once('utils/redirection_utils.php');
+require_once('utils/messages_utils.php');
 session_start();
 
 if (isset($_GET['controller']) && isset($_GET['action'])) {

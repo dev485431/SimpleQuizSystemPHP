@@ -3,6 +3,7 @@
 class UserService
 {
     const SQL_SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username=?";
+    const SQL_SELECT_PASSWORD_BY_USERNAME = "SELECT password FROM users WHERE username=?";
     const SQL_INSERT_USER = 'INSERT INTO users (userId, username, password, role) VALUES (null,?,?,?)';
     private $mysqli;
 
@@ -34,9 +35,24 @@ class UserService
         if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_USER_BY_USERNAME)) {
             $stmt->bind_param("s", $username);
             $stmt->execute();
+            $stmt->store_result();
             $numRows = $stmt->num_rows;
             $stmt->close();
         }
         return ($numRows === 0) ? false : true;
     }
+
+    public function checkPassword($username, $password)
+    {
+        $numRows = 0;
+        if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_USER_BY_USERNAME)) {
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $stmt->store_result();
+            $numRows = $stmt->num_rows;
+            $stmt->close();
+        }
+        return ($numRows === 0) ? false : true;
+    }
+
 }

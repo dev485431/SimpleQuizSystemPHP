@@ -15,11 +15,9 @@ class Config
 
     #Registration
     const DEFAULT_ROLE = 'user';
+    const MIN_USERNAME_LENGTH = 3;
+    const MAX_USERNAME_LENGTH = 20;
 
-    #Status and messages
-    const STATUS_SUCCESS = 'success';
-    const STATUS_WARNING = 'warning';
-    const STATUS_ERROR = 'error';
 
 }
 

@@ -9,6 +9,7 @@
         ?>
 
         <p>
+            Logged as: <strong><?php echo $_SESSION['username'] ?></strong> |
             <a href="?controller=security&action=logOut">Log out</a>
         </p>
 

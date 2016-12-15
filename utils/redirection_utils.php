@@ -2,6 +2,9 @@
 
 class RedirectionUtils
 {
+
+    const REFRESH_TIME_ZERO = 0;
+
     public static function redirectTo($location)
     {
         header('Location: ' . $location);

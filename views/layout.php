@@ -10,7 +10,7 @@ require_once 'config.php';
 
     <link rel="icon" href="static/favicon.ico">
     <link href="static/css/bootstrap.min.css" rel="stylesheet"/>
-    <title><?php echo PAGE_TITLE; ?></title>
+    <title><?php echo Config::PAGE_TITLE; ?></title>
 </head>
 <body>
 

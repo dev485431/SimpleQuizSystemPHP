@@ -23,7 +23,7 @@ function call($controller, $action)
         case 'security':
             require_once('models/user.php');
             require_once('service/user_service.php');
-            require_once('validation/validation_utils.php');
+            require_once('utils/validation_utils.php');
             $controller = new SecurityController();
             break;
     }

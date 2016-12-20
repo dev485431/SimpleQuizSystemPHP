@@ -4,7 +4,7 @@ class Config
 {
 
     const APP_ROOT = '/php_mvc/';
-    const PAGE_TITLE = 'Php Quiz World';
+    const PAGE_TITLE = 'Quiz World';
 
     #Database config
     const MYSQL_HOST = 'localhost';

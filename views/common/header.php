@@ -8,12 +8,19 @@
     <?php if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
         ?>
 
-        <p>
+        <div>
             Logged as: <strong><?php echo $_SESSION['username'] ?></strong> |
             <a href="?controller=security&action=logOut">Log out</a>
-        </p>
+        </div>
 
         <?php
+        if (isset($_SESSION['userRole']) && ($_SESSION['userRole']) == "admin") {
+            ?>
+
+            | admin-menu-and-options
+
+            <?php
+        }
     } else {
         ?>
 

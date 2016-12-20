@@ -1,5 +1,5 @@
 <?php
-$controllers = array('pages' => ['home', 'error'],
+$controllers = array('pages' => ['home', 'error', 'mainMenu'],
     'security' => ['signUp', 'signIn', 'logOut']);
 
 if (array_key_exists($controller, $controllers)) {

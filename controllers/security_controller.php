@@ -26,7 +26,7 @@ class SecurityController
                     $_SESSION['username'] = $user->getUsername();
                     $_SESSION['role'] = $user->getRole();
                     MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.log.in'));
-                    RedirectionUtils::redirectTo(Config::APP_ROOT);
+                    RedirectionUtils::redirectTo(Config::APP_ROOT . RedirectionUtils::URL_PATH_MAIN_MENU);
                 } else {
                     MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.wrong.username.password'));
                     RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
@@ -72,7 +72,7 @@ class SecurityController
 
                 if ($this->userService->addUser($newUser)) {
                     $_SESSION['username'] = $newUser->getUsername();
-                    $_SESSION['role'] = $newUser->getRole();
+                    $_SESSION['userRole'] = $newUser->getRole();
                     MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.added.user'));
                     RedirectionUtils::redirectTo(Config::APP_ROOT);
                 } else {

@@ -29,7 +29,6 @@ function call($controller, $action)
             break;
         case 'quiz':
             require_once('models/quiz.php');
-            require_once('models/dto/quiz_query_result.php');
             require_once('service/quiz_service.php');
             $controller = new QuizController();
             break;

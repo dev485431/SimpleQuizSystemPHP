@@ -20,6 +20,15 @@ class Config
     const MIN_PASS_LENGTH = 8;
     const MAX_PASS_LENGTH = 25;
 
+    #Quiz settings
+    const DEFAULT_QUIZ_ENABLED = true;
+
+    #Pagination settings
+    const PAGINATION_ITEMS_PER_PAGE = 10;
+    const PAGINATION_START_PAGE = 1;
+    const PAGINATION_ORDER = 'ASC';
+    const PAGINATION_QUIZZES_ORDER_BY = '';
+
 }
 
 ?>

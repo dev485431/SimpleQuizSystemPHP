@@ -3,6 +3,7 @@
 class QuizService
 {
     const SQL_SELECT_ALL_QUIZZES = "SELECT * FROM quizzes";
+    const SQL_LIMIT_OFFSET = " LIMIT ? OFFSET ?";
     private $mysqli;
 
     public function __construct()
@@ -15,16 +16,33 @@ class QuizService
         $this->mysqli->close();
     }
 
-    public function getAllQuizzes()
+    public function getAllQuizzes($pageNumber)
     {
-        $allQuizzes = array();
-        if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_ALL_QUIZZES)) {
+        $quizzes = array();
+        if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_ALL_QUIZZES . self::SQL_LIMIT_OFFSET)) {
+            $itemsPerPage = Config::PAGINATION_ITEMS_PER_PAGE;
+            $stmt->bind_param("ii", $itemsPerPage, DbUtils::calculateSqlOffset($pageNumber));
             $stmt->execute();
-            while ($row = $stmt->fetch_array(MYSQLI_ASSOC)) {
-                array_push($allQuizzes, $row);
+            $stmt->bind_result($quizId, $title, $description, $isEnabled);
+            while ($stmt->fetch()) {
+                array_push($quizzes, Quiz::createQuizWithId($quizId, $title, $description, $isEnabled));
             }
             $stmt->close();
         }
-        return $allQuizzes;
+        return $quizzes;
     }
+
+    public function getAllQuizzesCount()
+    {
+        $allQuizzesCount = 0;
+        if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_ALL_QUIZZES)) {
+            $stmt->execute();
+            $stmt->store_result();
+            $allQuizzesCount = $stmt->num_rows;
+            $stmt->close();
+        }
+        return $allQuizzesCount;
+    }
+
+
 }

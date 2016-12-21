@@ -14,7 +14,7 @@ foreach ($quizzes as $quiz) {
             <mark>0.0</mark>
         </p>
         <p>
-            <div class="well white-bg-well"><p class="text-info"><?php echo $quiz->getDescription() ?></p></div>
+            <div class="well white-bg-well"><?php echo $quiz->getDescription() ?></div>
         </p>
         <input type="hidden" name="quizId" value="<?php echo $quiz->getQuizId() ?>"/>
 

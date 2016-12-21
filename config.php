@@ -24,7 +24,7 @@ class Config
     const DEFAULT_QUIZ_ENABLED = true;
 
     #Pagination settings
-    const PAGINATION_ITEMS_PER_PAGE = 10;
+    const PAGINATION_ITEMS_PER_PAGE = 7;
     const PAGINATION_START_PAGE = 1;
     const PAGINATION_ORDER = 'ASC';
     const PAGINATION_QUIZZES_ORDER_BY = '';

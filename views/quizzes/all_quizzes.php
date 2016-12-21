@@ -10,9 +10,11 @@ foreach ($quizzes as $quiz) {
         <h2>
             <a href="?controller=quiz&action=quizDetails&quizId=<?php echo $quiz->getQuizId() ?>"><?php echo $quiz->getTitle() ?></a>
         </h2>
-        <p class="text-info">You score: <mark>0.0</mark></p>
+        <p class="text-info">You score:
+            <mark>0.0</mark>
+        </p>
         <p>
-        <div class="well well-sm"><?php echo $quiz->getDescription() ?></div>
+            <div class="well white-bg-well"><p class="text-info"><?php echo $quiz->getDescription() ?></p></div>
         </p>
         <input type="hidden" name="quizId" value="<?php echo $quiz->getQuizId() ?>"/>
 
@@ -34,7 +36,7 @@ foreach ($quizzes as $quiz) {
                 Top scores
             </a>
         </p>
-
+        </br>
 
         <?php
     }

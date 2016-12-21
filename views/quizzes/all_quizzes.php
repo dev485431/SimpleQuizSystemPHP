@@ -5,11 +5,39 @@
 foreach ($quizzes as $quiz) {
 
     if ($quiz->getIsEnabled()) {
-        echo 'Id: ' . $quiz->getQuizId() . '</br>';
-        echo 'Title: ' . $quiz->getTitle() . '</br>';
-        echo 'Desc: ' . $quiz->getDescription() . '</br>';
-    }
+        ?>
 
+        <h2>
+            <a href="?controller=quiz&action=quizDetails&quizId=<?php echo $quiz->getQuizId() ?>"><?php echo $quiz->getTitle() ?></a>
+        </h2>
+        <p class="text-info">You score: <mark>0.0</mark></p>
+        <p>
+        <div class="well well-sm"><?php echo $quiz->getDescription() ?></div>
+        </p>
+        <input type="hidden" name="quizId" value="<?php echo $quiz->getQuizId() ?>"/>
+
+        <p>
+            <a href='?controller=quiz&action=quizStart&quizId=<?php echo $quiz->getQuizId() ?>'
+               class="btn btn-success">
+		<span class="glyphicon glyphicon-play"
+              aria-hidden="true"></span>
+                Start
+            </a>
+            <a href='?controller=quiz&action=quizDetails&quizId=<?php echo $quiz->getQuizId() ?>'
+               class="btn btn-primary">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                Details
+            </a>
+            <a href='?controller=score&action=quizScores&quizId=<?php echo $quiz->getQuizId() ?>'
+               class="btn btn-danger">
+                <span class="glyphicon glyphicon glyphicon-tasks" aria-hidden="true"></span>
+                Top scores
+            </a>
+        </p>
+
+
+        <?php
+    }
 }
 
 ?>

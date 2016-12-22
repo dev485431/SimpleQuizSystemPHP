@@ -15,7 +15,7 @@
     <a href='?controller=ranking&action=showRanking'
        class="btn btn-danger">
         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-        Raking
+        Ranking
     </a>
 
 </p>

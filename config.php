@@ -29,6 +29,10 @@ class Config
     const PAGINATION_ORDER = 'ASC';
     const PAGINATION_QUIZZES_ORDER_BY = '';
 
+    #Ranking
+    const RANKING_DEFAULT_LIMIT = 10;
+
+
 }
 
 ?>

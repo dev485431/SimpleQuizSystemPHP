@@ -22,6 +22,18 @@ class QuizController
         $quizzes = $this->quizService->getAllQuizzes($pageNumber);
         require_once('views/quiz/all_quizzes.php');
     }
+
+    public function quizDetails()
+    {
+        $quizId = null;
+        if (isset($_GET["quizId"]) && !empty($_GET["quizId"]) && filter_var($_GET['quizId'], FILTER_VALIDATE_INT)) {
+            $quizId = $_GET["quizId"];
+        } else {
+            RedirectionUtils::redirectTo(RedirectionUtils::URL_ERROR);
+        }
+        $quiz = $this->quizService->getQuizById($quizId);
+        require_once('views/quiz/quiz_details.php');
+    }
 }
 
 ?>

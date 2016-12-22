@@ -1,7 +1,7 @@
 <?php
 $controllers = array('pages' => ['home', 'error', 'mainMenu'],
     'security' => ['signUp', 'signIn', 'logOut'],
-    'quiz' => ['showAllQuizzes']);
+    'quiz' => ['showAllQuizzes', 'quizDetails']);
 
 if (array_key_exists($controller, $controllers)) {
     if (in_array($action, $controllers[$controller])) {

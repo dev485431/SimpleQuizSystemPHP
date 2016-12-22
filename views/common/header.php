@@ -9,18 +9,21 @@
         ?>
 
         <div>
-            Logged as: <strong><?php echo $_SESSION['username'] ?></strong> |
+            Logged as:
+            <strong>
+                <?php
+                echo $_SESSION['username'];
+                if (isset($_SESSION['userRole']) && ($_SESSION['userRole']) == "admin") {
+                    ?>
+                    (admin)
+                    <?php
+                }
+                ?>
+            </strong> |
             <a href="?controller=security&action=logOut">Log out</a>
         </div>
 
         <?php
-        if (isset($_SESSION['userRole']) && ($_SESSION['userRole']) == "admin") {
-            ?>
-
-            | admin-menu-and-options
-
-            <?php
-        }
     } else {
         ?>
 

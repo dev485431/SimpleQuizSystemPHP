@@ -1,5 +1,21 @@
 <h2>Main menu</h2>
 <p>
+
+    <?php
+    if (isset($_SESSION['userRole']) && ($_SESSION['userRole']) == "admin") {
+        ?>
+
+        <a href='?controller=quiz&action=addNewQuiz'
+           class="btn btn-danger">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Add new quiz
+        </a>
+        |
+
+        <?php
+    }
+    ?>
+
     <a href="?controller=quiz&action=showAllQuizzes"
        class="btn btn-success">
         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -13,7 +29,7 @@
     </a>
 
     <a href='?controller=ranking&action=showRanking'
-       class="btn btn-danger">
+       class="btn btn-warning">
         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
         Ranking
     </a>

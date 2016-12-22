@@ -24,7 +24,7 @@ class SecurityController
                 $user = $this->userService->authorizeUser($username, $password);
                 if ($user) {
                     $_SESSION['username'] = $user->getUsername();
-                    $_SESSION['role'] = $user->getRole();
+                    $_SESSION['userRole'] = $user->getRole();
                     MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.log.in'));
                     RedirectionUtils::redirectTo(Config::APP_ROOT . RedirectionUtils::URL_PATH_MAIN_MENU);
                 } else {

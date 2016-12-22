@@ -20,7 +20,7 @@ class QuizController
             $pageNumber = $_GET['page'];
         }
         $quizzes = $this->quizService->getAllQuizzes($pageNumber);
-        require_once('views/quizzes/all_quizzes.php');
+        require_once('views/quiz/all_quizzes.php');
     }
 }
 

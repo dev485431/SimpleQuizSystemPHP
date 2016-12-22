@@ -2,7 +2,7 @@
 
 class QuizService
 {
-    const SQL_SELECT_ALL_QUIZZES = "SELECT * FROM quizzes";
+    const SQL_SELECT_ALL_QUIZZES = "SELECT * FROM quiz";
     const SQL_LIMIT_OFFSET = " LIMIT ? OFFSET ?";
     private $mysqli;
 

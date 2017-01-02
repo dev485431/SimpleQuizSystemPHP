@@ -22,4 +22,9 @@ class ValidationUtils
         return $subjectLength >= $minLength && $subjectLength <= $maxLength;
     }
 
+    public static function isSetAsInt(&$var)
+    {
+        return isset($var) && !self::isEmpty($var) && filter_var($var, FILTER_VALIDATE_INT);
+    }
+
 }

@@ -22,7 +22,14 @@ class Messages
         'error.password.wrong.length' => 'Password length must be between ' . Config::MIN_PASS_LENGTH . ' and ' .
             Config::MAX_PASS_LENGTH . ' characters',
         'error.password.wrong.pattern' => 'Password must contain at least one lowercase character, uppercase character, digit and special character',
-
+        'error.new.quiz.name.length' => 'Quiz name must be between ' . Config::QUIZ_NAME_MIN . ' and ' .
+            Config::QUIZ_NAME_MAX . ' characters',
+        'error.new.quiz.questions.length' => 'Quiz must contain between' . Config::QUIZ_QUESTIONS_MIN . ' and ' .
+            Config::QUIZ_QUESTIONS_MAX . ' questions',
+        'error.new.quiz.answers.length' => 'Each question must contain between' . Config::QUIZ_ANSWERS_MIN . ' and ' .
+            Config::QUIZ_ANSWERS_MAX . ' answers',
+        'error.new.quiz.description.length' => 'Quiz description must be between' . Config::QUIZ_DESCRIPTION_MIN . ' and ' .
+            Config::QUIZ_DESCRIPTION_MAX . ' characters',
     );
 
     public static function get($key)

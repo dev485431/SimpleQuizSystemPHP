@@ -22,6 +22,14 @@ class Config
 
     #Quiz settings
     const DEFAULT_QUIZ_ENABLED = true;
+    const QUIZ_NAME_MIN = 10;
+    const QUIZ_NAME_MAX = 25;
+    const QUIZ_DESCRIPTION_MIN = 25;
+    const QUIZ_DESCRIPTION_MAX = 75;
+    const QUIZ_QUESTIONS_MIN = 3;
+    const QUIZ_QUESTIONS_MAX = 15;
+    const QUIZ_ANSWERS_MIN = 2;
+    const QUIZ_ANSWERS_MAX = 5;
 
     #Pagination settings
     const PAGINATION_ITEMS_PER_PAGE = 7;

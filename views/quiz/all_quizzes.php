@@ -8,7 +8,7 @@ foreach ($quizzes as $quiz) {
         ?>
 
         <h2>
-            <a href="?controller=quiz&action=quizDetails&quizId=<?php echo $quiz->getQuizId() ?>"><?php echo $quiz->getTitle() ?></a>
+            <a href="?controller=quiz&action=showQuizDetails&quizId=<?php echo $quiz->getQuizId() ?>"><?php echo $quiz->getTitle() ?></a>
         </h2>
         <p class="text-info">You score:
             <mark>0.0</mark>
@@ -25,7 +25,7 @@ foreach ($quizzes as $quiz) {
               aria-hidden="true"></span>
                 Start
             </a>
-            <a href='?controller=quiz&action=quizDetails&quizId=<?php echo $quiz->getQuizId() ?>'
+            <a href='?controller=quiz&action=showQuizDetails&quizId=<?php echo $quiz->getQuizId() ?>'
                class="btn btn-primary">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                 Details

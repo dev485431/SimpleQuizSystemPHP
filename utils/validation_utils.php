@@ -3,7 +3,7 @@
 class ValidationUtils
 {
 
-    const REGEXP_USERNAME = '/^[A-Za-z0-9_\-]+$/';
+    const REGEXP_ALPHANUM_DASH_UNDERSCORE = '/^[A-Za-z0-9_\-]+$/';
     const REGEXP_PASSWORD = '/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/';
 
     public static function isEmpty($s)

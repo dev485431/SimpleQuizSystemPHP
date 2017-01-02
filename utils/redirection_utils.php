@@ -10,11 +10,13 @@ class RedirectionUtils
     public static function redirectTo($location)
     {
         header('Location: ' . $location);
+        exit();
     }
 
     public static function refreshPage($seconds)
     {
         header('Refresh:' . $seconds);
+        exit();
     }
 
 }

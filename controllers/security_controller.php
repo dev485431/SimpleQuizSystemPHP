@@ -18,7 +18,7 @@ class SecurityController
             $username = $_POST['username'];
             $password = $_POST['password'];
             if (ValidationUtils::isEmpty($username) || ValidationUtils::isEmpty($password)) {
-                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.username.password.empty'));
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.empty.form.fields'));
                 RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
             } else {
                 $user = $this->userService->authorizeUser($username, $password);
@@ -46,7 +46,7 @@ class SecurityController
             $password = $_POST['password'];
 
             if (ValidationUtils::isEmpty($username) || ValidationUtils::isEmpty($password)) {
-                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.username.password.empty'));
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.empty.form.fields'));
                 RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
             } else if (!ValidationUtils::hasCorrectLength(Config::MIN_USERNAME_LENGTH, Config::MAX_USERNAME_LENGTH,
                 $username)
@@ -58,7 +58,7 @@ class SecurityController
             ) {
                 MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.password.wrong.length'));
                 RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-            } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_USERNAME, $username)) {
+            } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE, $username)) {
                 MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.username.wrong.pattern'));
                 RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
             } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_PASSWORD, $password)) {

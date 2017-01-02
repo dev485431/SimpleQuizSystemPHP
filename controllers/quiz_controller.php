@@ -36,32 +36,41 @@ class QuizController
 
     public function addNewQuiz()
     {
-        $step = 1;
-        if (ValidationUtils::isSetAsInt($_GET['step'])) {
-            $step = $_GET['step'];
+        if (isset($_POST['quizName']) || isset($_POST['quizCategoryId']) || isset($_POST['quizDescription'])) {
+            $quizName = $_POST['quizName'];
+            $quizCategoryId = $_POST['quizCategoryId'];
+            $quizDescription = $_POST['quizDescription'];
+
+            if (ValidationUtils::isEmpty($quizName) || ValidationUtils::isEmpty($quizCategoryId) || ValidationUtils::isEmpty
+                ($quizDescription)
+            ) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.empty.form.fields'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            } else if (!ValidationUtils::hasCorrectLength(Config::QUIZ_NAME_MIN, Config::QUIZ_NAME_MAX,
+                $quizName)
+            ) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.name.wrong.length'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            } else if (!ValidationUtils::hasCorrectLength(Config::QUIZ_DESCRIPTION_MIN, Config::QUIZ_DESCRIPTION_MAX,
+                $quizDescription)
+            ) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.description.wrong.length'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE, $quizName)) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.name.wrong.pattern'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE, $quizDescription)) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.description.wrong.pattern'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            } else if (!ValidationUtils::isSetAsInt($quizCategoryId)) {
+                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.category.not.integer'));
+                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+            }
+            // DOES CATEGORY ID EXIST IN DB
+            // DOES THE QUIZ NAME EXIST IN DB?
+
         }
-
-        switch ($step) {
-            case 1:
-                require_once('views/quiz/add_quiz_step1.php');
-                break;
-
-            case 2:
-                require_once('views/quiz/add_quiz_step2.php');
-                break;
-
-            case 3:
-
-
-
-
-
-                require_once('views/quiz/add_quiz_step3.php');
-                break;
-
-            default:
-                call('pages', 'error');
-        }
+        require_once('views/quiz/add_quiz.php');
     }
 }
 

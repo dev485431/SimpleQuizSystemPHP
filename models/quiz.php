@@ -7,17 +7,19 @@ class Quiz
     private $title;
     private $description;
     private $isEnabled;
+    private $categoryId;
 
-    public function __construct($title, $description, $isEnabled)
+    public function __construct($title, $description, $isEnabled, $categoryId)
     {
         $this->title = $title;
         $this->description = $description;
         $this->isEnabled = $isEnabled;
+        $this->categoryId = $categoryId;
     }
 
-    public static function createQuizWithId($quizId, $title, $description, $isEnabled)
+    public static function createQuizWithId($quizId, $title, $description, $isEnabled, $categoryId)
     {
-        $q = new Quiz($title, $description, $isEnabled);
+        $q = new Quiz($title, $description, $isEnabled, $categoryId);
         $q->setQuizId($quizId);
         return $q;
     }
@@ -62,5 +64,14 @@ class Quiz
         $this->isEnabled = $isEnabled;
     }
 
+    public function getCategoryId()
+    {
+        return $this->categoryId;
+    }
+
+    public function setCategoryId($categoryId)
+    {
+        $this->categoryId = $categoryId;
+    }
 
 }

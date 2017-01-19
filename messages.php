@@ -10,7 +10,6 @@ class Messages
     const ERR_NO_MESSAGE = 'APPLICATION ERROR: There is no message specified for this key';
     const MESSAGES = array(
         'error.empty.form.fields' => 'Please fill in all the form fields',
-
         'success.added.user' => 'New user added successfully',
         'error.wrong.username.password' => 'Wrong username or password',
         'success.log.in' => 'You were successfully logged in',
@@ -29,7 +28,11 @@ class Messages
             Config::QUIZ_DESCRIPTION_MAX . ' characters',
         'error.quiz.name.wrong.pattern' => 'Quiz name can contain only letters, numbers, underscores and dashes',
         'error.quiz.description.wrong.pattern' => 'Quiz description can contain only letters, numbers, underscores and dashes',
-        'error.quiz.category.not.integer' => 'Invalid quiz category'
+        'error.quiz.category.not.integer' => 'Invalid quiz category',
+        'success.added.quiz' => 'New quiz was added successfully',
+        'error.adding.quiz' => 'Unable to add new quiz. Try again later.'
+
+
     );
 
     public static function get($key)

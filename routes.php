@@ -29,7 +29,10 @@ function call($controller, $action)
             break;
         case 'quiz':
             require_once('models/quiz.php');
+            require_once('models/category.php');
             require_once('service/quiz_service.php');
+            require_once('service/category_service.php');
+            require_once('validation/form_validation.php');
             require_once('utils/validation_utils.php');
             $controller = new QuizController();
             break;

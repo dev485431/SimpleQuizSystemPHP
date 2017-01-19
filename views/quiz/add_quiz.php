@@ -9,18 +9,19 @@
         <small class="form-text text-muted">(min <?php echo Config::QUIZ_NAME_MIN; ?>, max <?php echo
             Config::QUIZ_NAME_MAX; ?>)
         </small>
-        <input class="form-control" type="text" id="quizName" name="quizName"
-               value="<?php if (isset($_POST['quizName']))
-                   echo $_POST['quizName']; ?>"/>
+        <input class="form-control" type="text" id="quizTile" name="quizTile"
+               value="<?php if (isset($_POST['quizTile']))
+                   echo $_POST['quizTile']; ?>"/>
     </div>
 
     <div class="form-group">
         <label for="quizCategoryId">Category</label>
         <select class="form-control" id="quizCategoryId" name="quizCategoryId">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+            <?php
+            foreach ($categories as $cat) {
+                echo '<option value="' . $cat->getCategoryId() . '">' . $cat->getName() . '</option>';
+            }
+            ?>
         </select>
     </div>
 
@@ -35,6 +36,6 @@
     </div>
 
     <div class="text-center">
-        <input class="btn btn-primary" type="submit" value="Next step"/>
+        <input class="btn btn-primary" type="submit" value="Add quiz"/>
     </div>
 </form>

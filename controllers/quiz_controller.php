@@ -4,10 +4,14 @@ class QuizController
 {
 
     private $quizService;
+    private $categoryService;
+    private $formValidation;
 
     public function __construct()
     {
         $this->quizService = new QuizService();
+        $this->categoryService = new CategoryService();
+        $this->formValidation = new FormValidation();
     }
 
     public function showAllQuizzes()
@@ -18,7 +22,7 @@ class QuizController
         ) {
             $pageNumber = $_GET['page'];
         }
-        $quizzes = $this->quizService->getAllQuizzes($pageNumber);
+        $quizzes = $this->quizService->getQuizzesByPageNumber($pageNumber);
         require_once('views/quiz/all_quizzes.php');
     }
 
@@ -36,42 +40,28 @@ class QuizController
 
     public function addNewQuiz()
     {
-        if (isset($_POST['quizName']) || isset($_POST['quizCategoryId']) || isset($_POST['quizDescription'])) {
-            $quizName = $_POST['quizName'];
+        $categories = $this->categoryService->getAllCategories();
+
+        if (isset($_POST['quizTile']) || isset($_POST['quizCategoryId']) || isset($_POST['quizDescription'])) {
+            $quizTitle = $_POST['quizTile'];
             $quizCategoryId = $_POST['quizCategoryId'];
             $quizDescription = $_POST['quizDescription'];
 
-            if (ValidationUtils::isEmpty($quizName) || ValidationUtils::isEmpty($quizCategoryId) || ValidationUtils::isEmpty
-                ($quizDescription)
-            ) {
-                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.empty.form.fields'));
-                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-            } else if (!ValidationUtils::hasCorrectLength(Config::QUIZ_NAME_MIN, Config::QUIZ_NAME_MAX,
-                $quizName)
-            ) {
-                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.name.wrong.length'));
-                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-            } else if (!ValidationUtils::hasCorrectLength(Config::QUIZ_DESCRIPTION_MIN, Config::QUIZ_DESCRIPTION_MAX,
-                $quizDescription)
-            ) {
-                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.description.wrong.length'));
-                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-            } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE, $quizName)) {
-                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.name.wrong.pattern'));
-                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-            } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE, $quizDescription)) {
-                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.description.wrong.pattern'));
-                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-            } else if (!ValidationUtils::isSetAsInt($quizCategoryId)) {
-                MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.category.not.integer'));
-                RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-            }
-            // DOES CATEGORY ID EXIST IN DB
-            // DOES THE QUIZ NAME EXIST IN DB?
+            if ($this->formValidation->validateAddQuizForm($quizTitle, $quizDescription, $quizCategoryId)) {
+                $newQuiz = new Quiz($quizTitle, $quizDescription, Config::DEFAULT_QUIZ_ENABLED, $quizCategoryId);
 
+                if ($this->quizService->addQuiz($newQuiz)) {
+                    MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.added.quiz'));
+                    RedirectionUtils::redirectTo(Config::APP_ROOT);
+                } else {
+                    MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.adding.quiz'));
+                    RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+                }
+            }
         }
         require_once('views/quiz/add_quiz.php');
     }
+
 }
 
 ?>

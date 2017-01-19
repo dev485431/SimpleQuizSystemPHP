@@ -30,7 +30,17 @@ class FormValidation
             MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.category.not.integer'));
             RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
         }
-        // DOES THE QUIZ NAME EXIST IN DB?
+        return true;
+    }
+
+    public function validateAddQuestionForm($quizId, $content, $answers)
+    {
+        if (ValidationUtils::isEmpty($quizId) || ValidationUtils::isEmpty($content) || ValidationUtils::isEmpty
+            ($answers)
+        ) {
+            MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.empty.form.fields'));
+            RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+        }
         return true;
     }
 

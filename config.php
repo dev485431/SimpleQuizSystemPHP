@@ -40,6 +40,8 @@ class Config
     #Ranking
     const RANKING_DEFAULT_LIMIT = 10;
 
+    #Questions
+    const DEFAULT_QUESTIONS_PER_ANSWER = 3;
 
 }
 

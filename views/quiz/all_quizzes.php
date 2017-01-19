@@ -13,30 +13,59 @@ foreach ($quizzes as $quiz) {
         <p class="text-info">You score:
             <mark>0.0</mark>
         </p>
-        <p>
-            <div class="well white-bg-well"><?php echo $quiz->getDescription() ?></div>
-        </p>
+        <div class="well white-bg-well"><?php echo $quiz->getDescription() ?></div>
         <input type="hidden" name="quizId" value="<?php echo $quiz->getQuizId() ?>"/>
 
-        <p>
-            <a href='?controller=quiz&action=quizStart&quizId=<?php echo $quiz->getQuizId() ?>'
+        <div>
+            <a href='?controller=quiz&action=startQuiz&quizId=<?php echo $quiz->getQuizId() ?>'
                class="btn btn-success">
 		<span class="glyphicon glyphicon-play"
               aria-hidden="true"></span>
                 Start
             </a>
+
             <a href='?controller=quiz&action=showQuizDetails&quizId=<?php echo $quiz->getQuizId() ?>'
                class="btn btn-primary">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                 Details
             </a>
+
             <a href='?controller=score&action=quizScores&quizId=<?php echo $quiz->getQuizId() ?>'
-               class="btn btn-danger">
+               class="btn btn-warning">
                 <span class="glyphicon glyphicon glyphicon-tasks" aria-hidden="true"></span>
                 Top scores
             </a>
-        </p>
-        </br>
+
+            <?php
+            if (isset($_SESSION['userRole']) && ($_SESSION['userRole']) == "admin") {
+                ?>
+
+                |
+                <div class="dropdown div-inline">
+                    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                        Admin
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="adminDropDown">
+                        <li><a href="?controller=question&action=addQuestion&quizId=<?php echo $quiz->getQuizId(); ?>">Add
+                                question</a></li>
+                        <li><a href="?controller=quiz&action=editQuiz&quizId=<?php echo $quiz->getQuizId(); ?>">Edit</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="?controller=quiz&action=deleteQuiz&quizId=<?php echo $quiz->getQuizId(); ?>">Delete</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <?php
+            }
+            ?>
+
+        </div>
+        <br>
 
         <?php
     }

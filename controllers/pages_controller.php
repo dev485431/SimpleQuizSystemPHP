@@ -5,7 +5,7 @@ class PagesController
     public function home()
     {
         if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-            RedirectionUtils::redirectTo(Config::APP_ROOT . RedirectionUtils::URL_PATH_MAIN_MENU);
+            call('pages', 'mainMenu');
         } else {
             require_once('views/pages/home.php');
         }

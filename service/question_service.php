@@ -9,6 +9,7 @@ class QuestionService
     const SQL_SELECT_QUESTIONS_BY_QUIZ_ID = 'SELECT * FROM questions WHERE quizId=?';
     const SQL_SELECT_ANSWERS_BY_QUESTION_ID = 'SELECT * FROM answers WHERE questionId=?';
     const SQL_LIMIT_OFFSET = " LIMIT ? OFFSET ?";
+    const LIMIT_ONE = 1;
 
     private $mysqli;
 
@@ -55,26 +56,24 @@ class QuestionService
             false : true;
     }
 
-    public function getQuestionsByNumberAndQuizId($questionNumber, $quizId)
+    public function getQuestionByNumberAndQuizId($questionNumber, $quizId)
     {
-        $questions = array();
+        $question = null;
         if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_QUESTIONS_BY_QUIZ_ID . self::SQL_LIMIT_OFFSET)) {
-            $questionsPerPage = Config::DEFAULT_QUESTIONS_PER_PAGE;
+            $questionsPerPage = DbUtils::ONE;
             $stmt->bind_param("iii", $quizId, $questionsPerPage, DbUtils::calculateSqlQuestionOffset($questionNumber));
             $stmt->execute();
             $stmt->bind_result($db_questionId, $db_question, $db_quizId);
-            while ($stmt->fetch()) {
-                array_push($questions, Question::createQuestionWithId($db_questionId, $db_question, [], $db_quizId));
-            }
-            $stmt->close();
-
-            foreach ($questions as $question) {
-                $db_answers = $this->getAnswersByQuestionId($question->getQuestionId());
-                $question->setAnswers($db_answers);
-            }
+            $stmt->fetch();
+            $question = Question::createQuestionWithId($db_questionId, $db_question, [], $db_quizId);
         }
-        return $questions;
+        $stmt->close();
+
+        $db_answers = $this->getAnswersByQuestionId($question->getQuestionId());
+        $question->setAnswers($db_answers);
+        return $question;
     }
+
 
     private function getAnswersByQuestionId($questionId)
     {

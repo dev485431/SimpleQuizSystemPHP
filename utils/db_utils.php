@@ -16,7 +16,7 @@ class DbUtils
 
     public static function calculateSqlQuestionOffset($questionNumber)
     {
-        return ($questionNumber - self::ONE) * Config::DEFAULT_QUESTIONS_PER_PAGE;
+        return $questionNumber - self::ONE;
     }
 
 }

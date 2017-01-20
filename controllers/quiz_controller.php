@@ -73,8 +73,8 @@ class QuizController
         } else {
             call('pages', 'error');
         }
-        $questionNumber = ValidationUtils::isSetAsInt($_GET['currentQuestion']) ? $_GET['currentQuestion'] : Config::DEFAULT_START_QUESTION_NUM;
-        $questions = $this->questionService->getQuestionsByNumberAndQuizId($questionNumber, $quizId);
+        $questionNumber = ValidationUtils::isSetAsInt($_GET['questionNumber']) ? $_GET['questionNumber'] : Config::DEFAULT_START_QUESTION_NUM;
+        $question = $this->questionService->getQuestionByNumberAndQuizId($questionNumber, $quizId);
         require_once('views/quiz/quiz_question.php');
     }
 

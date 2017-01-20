@@ -21,14 +21,14 @@ class QuestionService
 
     public function addQuestion(Question $question)
     {
-        $insertSuccess = true;
+        $insertsSuccess = true;
         $this->mysqli->autocommit(false);
 
         $questionId = null;
         $affectedRowsQuestion = 0;
         if ($stmt = $this->mysqli->prepare(self::SQL_INSERT_QUESTION)) {
             $stmt->bind_param("s", $question->getQuestion());
-            if (!$stmt->execute()) $insertSuccess = false;
+            if (!$stmt->execute()) $insertsSuccess = false;
             $affectedRowsQuestion = $this->mysqli->affected_rows;
             $questionId = $this->mysqli->insert_id;
             $stmt->close();
@@ -40,7 +40,7 @@ class QuestionService
         foreach ($question->getAnswers() as $answer) {
             if ($stmt = $this->mysqli->prepare(self::SQL_INSERT_ANSWER)) {
                 $stmt->bind_param("si", $answer->getAnswer(), $answer->getIsCorrect());
-                if (!$stmt->execute()) $insertSuccess = false;
+                if (!$stmt->execute()) $insertsSuccess = false;
                 $affectedRowsAnswers += $this->mysqli->affected_rows;
                 $answerId = $this->mysqli->insert_id;
                 $stmt->close();
@@ -48,12 +48,12 @@ class QuestionService
 
             if ($stmt = $this->mysqli->prepare(self::SQL_INSERT_QUESTION_ANSWERS)) {
                 $stmt->bind_param("ii", $questionId, $answerId);
-                if (!$stmt->execute()) $insertSuccess = false;
+                if (!$stmt->execute()) $insertsSuccess = false;
                 $affectedRowsQuestionAnswers = $this->mysqli->affected_rows;
                 $stmt->close();
             }
         }
-        if ($insertSuccess) {
+        if ($insertsSuccess) {
             $this->mysqli->commit();
         } else {
             $this->mysqli->rollback();

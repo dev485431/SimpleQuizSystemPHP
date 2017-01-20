@@ -33,12 +33,24 @@ class FormValidation
         return true;
     }
 
-    public function validateAddQuestionForm($quizId, $content, $answers)
+    public function validateAddQuestionForm($question, $answer1, $answer2, $answer3, $correctAnswer)
     {
-        if (ValidationUtils::isEmpty($quizId) || ValidationUtils::isEmpty($content) || ValidationUtils::isEmpty
-            ($answers)
+        if (ValidationUtils::isEmpty($question) || ValidationUtils::isEmpty($answer1) || ValidationUtils::isEmpty
+            ($answer2) || ValidationUtils::isEmpty($answer3)
         ) {
             MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.empty.form.fields'));
+            RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+        } else if (!ValidationUtils::hasCorrectLength(Config::QUESTION_LENGTH_MIN, Config::QUESTION_LENGTH_MAX,
+            $question)
+        ) {
+            MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.question.wrong.length'));
+            RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+        } else if (!ValidationUtils::hasCorrectLength(Config::ANSWER_LENGTH_MIN, Config::ANSWER_LENGTH_MAX,
+                $answer1) || !ValidationUtils::hasCorrectLength(Config::ANSWER_LENGTH_MIN, Config::ANSWER_LENGTH_MAX,
+                $answer2) || !ValidationUtils::hasCorrectLength(Config::ANSWER_LENGTH_MIN, Config::ANSWER_LENGTH_MAX,
+                $answer3)
+        ) {
+            MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.answer.wrong.length'));
             RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
         }
         return true;

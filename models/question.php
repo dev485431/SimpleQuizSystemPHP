@@ -3,12 +3,12 @@
 class Question
 {
     private $questionId;
-    private $content;
+    private $question;
     private $answers = array();
 
     public function __construct($content, $answers)
     {
-        $this->content = $content;
+        $this->question = $content;
         $this->answers = $answers;
     }
 
@@ -29,14 +29,14 @@ class Question
         $this->questionId = $questionId;
     }
 
-    public function getContent()
+    public function getQuestion()
     {
-        return $this->content;
+        return $this->question;
     }
 
-    public function setContent($content)
+    public function setQuestion($question)
     {
-        $this->content = $content;
+        $this->question = $question;
     }
 
     public function getAnswers()

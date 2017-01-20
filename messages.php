@@ -30,9 +30,13 @@ class Messages
         'error.quiz.description.wrong.pattern' => 'Quiz description can contain only letters, numbers, underscores and dashes',
         'error.quiz.category.not.integer' => 'Invalid quiz category',
         'success.added.quiz' => 'New quiz was added successfully',
-        'error.adding.quiz' => 'Unable to add new quiz. Try again later.'
-
-
+        'error.adding.quiz' => 'Unable to add new quiz. Try again later.',
+        'error.question.wrong.length' => 'Question length must be between' . Config::QUESTION_LENGTH_MIN . ' and ' .
+            Config::QUESTION_LENGTH_MAX . ' characters',
+        'error.answer.wrong.length' => 'Answer length must be between' . Config::ANSWER_LENGTH_MIN . ' and ' .
+            Config::ANSWER_LENGTH_MAX . ' characters',
+        'success.added.question' => 'New question was added successfully',
+        'error.adding.question' => 'Unable to add new question'
     );
 
     public static function get($key)

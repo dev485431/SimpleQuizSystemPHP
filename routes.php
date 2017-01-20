@@ -42,6 +42,7 @@ function call($controller, $action)
             require_once('service/question_service.php');
             require_once('models/question.php');
             require_once('service/quiz_service.php');
+            require_once('models/answer.php');
             require_once('validation/form_validation.php');
             require_once('utils/validation_utils.php');
             $controller = new QuestionController();

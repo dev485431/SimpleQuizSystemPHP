@@ -39,7 +39,7 @@ class QuizController
         require_once('views/quiz/quiz_details.php');
     }
 
-    public function addNewQuiz()
+    public function addQuiz()
     {
         $categories = $this->categoryService->getAllCategories();
 

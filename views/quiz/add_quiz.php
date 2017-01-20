@@ -1,7 +1,7 @@
 <h1>Add new quiz</h1>
 
 
-<form action="?controller=quiz&action=addNewQuiz" method="post">
+<form action="?controller=quiz&action=addQuiz" method="post">
     <div class="form-group">
         <label for="name">
             Name

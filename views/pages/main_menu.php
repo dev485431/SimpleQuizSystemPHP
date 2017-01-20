@@ -5,10 +5,16 @@
     if (isset($_SESSION['userRole']) && ($_SESSION['userRole']) == "admin") {
         ?>
 
-        <a href='?controller=quiz&action=addNewQuiz'
+        <a href='?controller=quiz&action=addQuiz'
            class="btn btn-danger">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             Add new quiz
+        </a>
+
+        <a href='?controller=category&action=addCategory'
+           class="btn btn-danger">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Add new category
         </a>
         |
 

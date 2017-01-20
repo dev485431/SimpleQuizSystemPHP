@@ -2,7 +2,6 @@
 
 class FormValidation
 {
-
     public function validateAddQuizForm($quizTitle, $quizDescription, $quizCategoryId)
     {
         if (ValidationUtils::isEmpty($quizTitle) || ValidationUtils::isEmpty($quizCategoryId) || ValidationUtils::isEmpty
@@ -51,6 +50,25 @@ class FormValidation
                 $answer3)
         ) {
             MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.answer.wrong.length'));
+            RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+        }
+        return true;
+    }
+
+    public function validateAddCategoryForm($name, $description)
+    {
+        if (ValidationUtils::isEmpty($name) || ValidationUtils::isEmpty($description)) {
+            MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.empty.form.fields'));
+            RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+        } else if (!ValidationUtils::hasCorrectLength(Config::CATEGORY_NAME_MIN, Config::CATEGORY_NAME_MAX,
+            $name)
+        ) {
+            MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.category.name.wrong.length'));
+            RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+        } else if (!ValidationUtils::hasCorrectLength(Config::CATEGORY_DESCRIPTION_MIN, Config::CATEGORY_DESCRIPTION_MAX,
+            $description)
+        ) {
+            MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.category.desc.wrong.length'));
             RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
         }
         return true;

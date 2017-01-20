@@ -36,7 +36,14 @@ class Messages
         'error.answer.wrong.length' => 'Answer length must be between' . Config::ANSWER_LENGTH_MIN . ' and ' .
             Config::ANSWER_LENGTH_MAX . ' characters',
         'success.added.question' => 'New question was added successfully',
-        'error.adding.question' => 'Unable to add new question'
+        'error.adding.question' => 'Unable to add new question',
+        'error.category.name.wrong.length' => 'Category name must be between' . Config::CATEGORY_NAME_MIN . ' and ' .
+            Config::CATEGORY_NAME_MAX . ' characters',
+        'error.category.desc.wrong.length' => 'Category description must be between' .
+            Config::CATEGORY_DESCRIPTION_MIN . ' and ' . Config::CATEGORY_DESCRIPTION_MAX . ' characters',
+        'error.category.name.exists' => 'This category name already exists',
+        'success.added.category' => 'New category was added successfully',
+        'error.adding.category' => 'Unable to add new category',
     );
 
     public static function get($key)

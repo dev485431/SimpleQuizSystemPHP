@@ -1,8 +1,9 @@
 <?php
 $controllers = array('pages' => ['home', 'error', 'mainMenu'],
     'security' => ['signUp', 'signIn', 'logOut'],
-    'quiz' => ['showAllQuizzes', 'showQuizDetails', 'addNewQuiz'],
-    'question' => ['addQuestion']);
+    'quiz' => ['showAllQuizzes', 'showQuizDetails', 'addQuiz'],
+    'question' => ['addQuestion'],
+    'category' => ['addCategory'],);
 
 if (array_key_exists($controller, $controllers)) {
     if (in_array($action, $controllers[$controller])) {
@@ -46,6 +47,13 @@ function call($controller, $action)
             require_once('validation/form_validation.php');
             require_once('utils/validation_utils.php');
             $controller = new QuestionController();
+            break;
+        case 'category':
+            require_once('models/category.php');
+            require_once('service/category_service.php');
+            require_once('validation/form_validation.php');
+            require_once('utils/validation_utils.php');
+            $controller = new CategoryController();
             break;
     }
 

@@ -46,6 +46,13 @@ class Config
     const ANSWER_LENGTH_MIN = 1;
     const ANSWER_LENGTH_MAX = 250;
 
+    #Categories
+    const CATEGORY_NAME_MIN = 1;
+    const CATEGORY_NAME_MAX = 250;
+    const CATEGORY_DESCRIPTION_MIN = 1;
+    const CATEGORY_DESCRIPTION_MAX = 250;
+
+
 }
 
 ?>

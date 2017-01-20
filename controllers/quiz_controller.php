@@ -63,6 +63,11 @@ class QuizController
         require_once('views/quiz/add_quiz.php');
     }
 
+    public function startQuiz($quizId)
+    {
+
+    }
+
 }
 
 ?>

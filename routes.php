@@ -1,7 +1,7 @@
 <?php
 $controllers = array('pages' => ['home', 'error', 'mainMenu'],
     'security' => ['signUp', 'signIn', 'logOut'],
-    'quiz' => ['showAllQuizzes', 'showQuizDetails', 'addQuiz'],
+    'quiz' => ['showAllQuizzes', 'showQuizDetails', 'addQuiz', 'startQuiz'],
     'question' => ['addQuestion'],
     'category' => ['addCategory'],);
 

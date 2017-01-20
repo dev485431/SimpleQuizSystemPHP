@@ -4,8 +4,9 @@ class QuestionService
 {
 
     const SQL_INSERT_QUESTION = 'INSERT INTO questions (questionId, question, quizId) VALUES (null,?,?)';
-    const SQL_INSERT_ANSWER = 'INSERT INTO answers (answerId, answer, isCorrect) VALUES (null,?,?)';
+    const SQL_INSERT_ANSWER = 'INSERT INTO answers (answerId, answer, isCorrect, questionId) VALUES (null,?,?,?)';
     const SQL_INSERT_QUESTION_ANSWERS = 'INSERT INTO questions_answers (id, questionId, answerId) VALUES (null,?,?)';
+    const SQL_SELECT_QUESTIONS_BY_QUIZ_ID = 'SELECT * FROM questions WHERE quizId=?';
 
     private $mysqli;
 
@@ -34,22 +35,12 @@ class QuestionService
             $stmt->close();
         }
 
-        $answerId = null;
         $affectedRowsAnswers = 0;
-        $affectedRowsQuestionAnswers = 0;
         foreach ($question->getAnswers() as $answer) {
             if ($stmt = $this->mysqli->prepare(self::SQL_INSERT_ANSWER)) {
-                $stmt->bind_param("si", $answer->getAnswer(), $answer->getIsCorrect());
+                $stmt->bind_param("sii", $answer->getAnswer(), $answer->getIsCorrect(), $questionId);
                 if (!$stmt->execute()) $insertsSuccess = false;
                 $affectedRowsAnswers += $this->mysqli->affected_rows;
-                $answerId = $this->mysqli->insert_id;
-                $stmt->close();
-            }
-
-            if ($stmt = $this->mysqli->prepare(self::SQL_INSERT_QUESTION_ANSWERS)) {
-                $stmt->bind_param("ii", $questionId, $answerId);
-                if (!$stmt->execute()) $insertsSuccess = false;
-                $affectedRowsQuestionAnswers = $this->mysqli->affected_rows;
                 $stmt->close();
             }
         }
@@ -58,8 +49,13 @@ class QuestionService
         } else {
             $this->mysqli->rollback();
         }
-        return ($affectedRowsQuestion === 0 || $affectedRowsAnswers === 0 || $affectedRowsQuestionAnswers === 0) ?
+        return ($affectedRowsQuestion === 0 || $affectedRowsAnswers === 0) ?
             false : true;
+    }
+
+    public function getQuestionsAndAnswersByQuizId($quizId)
+    {
+
     }
 
 }

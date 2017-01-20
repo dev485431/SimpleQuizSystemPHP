@@ -6,6 +6,7 @@ class Answer
     private $answerId;
     private $answer;
     private $isCorrect;
+    private $questionId;
 
     public function __construct($answer, $isCorrect)
     {
@@ -17,6 +18,14 @@ class Answer
     {
         $a = new Answer($answer, $isCorrect);
         $a->setAnswerId($answerId);
+        return $a;
+    }
+
+    public static function createAnswerWithIdAndQuestionId($answerId, $answer, $isCorrect, $questionId)
+    {
+        $a = new Answer($answer, $isCorrect);
+        $a->setAnswerId($answerId);
+        $a->setQuestionId($questionId);
         return $a;
     }
 
@@ -50,5 +59,14 @@ class Answer
         $this->isCorrect = $isCorrect;
     }
 
+    public function getQuestionId()
+    {
+        return $this->questionId;
+    }
+
+    public function setQuestionId($questionId)
+    {
+        $this->questionId = $questionId;
+    }
 
 }

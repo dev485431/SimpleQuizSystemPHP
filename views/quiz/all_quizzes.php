@@ -10,6 +10,9 @@ foreach ($quizzes as $quiz) {
         <h2>
             <a href="?controller=quiz&action=showQuizDetails&quizId=<?php echo $quiz->getQuizId() ?>"><?php echo $quiz->getTitle() ?></a>
         </h2>
+        <p class="text-info">Number of questions:
+            <mark><?php echo $quizService->getNumberOfQuizQuestions($quiz->getQuizId()); ?></mark>
+        </p>
         <p class="text-info">You score:
             <mark>0.0</mark>
         </p>

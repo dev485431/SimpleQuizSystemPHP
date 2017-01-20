@@ -6,6 +6,8 @@ class QuizService
     const SQL_LIMIT_OFFSET = " LIMIT ? OFFSET ?";
     const SQL_BY_QUIZ_ID = " WHERE quizId=?";
     const SQL_ADD_QUIZ = "INSERT INTO quizzes (quizId, title, description, isEnabled, categoryId) VALUES (null,?,?,?,?)";
+    const SQL_GET_NUMBER_OF_QUESTIONS = 'SELECT COUNT(*) FROM questions WHERE quizId=?';
+
     private $mysqli;
 
     public function __construct()
@@ -70,6 +72,19 @@ class QuizService
             $stmt->close();
         }
         return ($affectedRows === 0) ? false : true;
+    }
+
+    public function getNumberOfQuizQuestions($quizId)
+    {
+        $questionsCount = null;
+        if ($stmt = $this->mysqli->prepare(self::SQL_GET_NUMBER_OF_QUESTIONS)) {
+            $stmt->bind_param("i", $quizId);
+            $stmt->execute();
+            $stmt->bind_result($questionsCount);
+            $stmt->fetch();
+            $stmt->close();
+        }
+        return $questionsCount;
     }
 
 }

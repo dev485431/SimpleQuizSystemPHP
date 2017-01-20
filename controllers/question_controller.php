@@ -16,6 +16,7 @@ class QuestionController
 
     public function addQuestion()
     {
+        $quizId = null;
         if (isset($_GET['quizId']) && ValidationUtils::isSetAsInt($_GET['quizId'])) {
             $quizId = $_GET['quizId'];
             $quiz = $this->quizService->getQuizById($quizId);
@@ -41,13 +42,13 @@ class QuestionController
                     }
                     $answers[$i] = $a;
                 }
-                $newQuestion = new Question($question, $answers);
+                $newQuestion = new Question($question, $answers, $quizId);
                 if ($this->questionService->addQuestion($newQuestion)) {
                     MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.added.question'));
                     RedirectionUtils::redirectTo(Config::APP_ROOT);
                 } else {
-//                    MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.adding.question'));
-//                    RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+                    MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.adding.question'));
+                    RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
                 }
             }
         }

@@ -3,7 +3,7 @@
 class QuestionService
 {
 
-    const SQL_INSERT_QUESTION = 'INSERT INTO questions (questionId, question) VALUES (null,?)';
+    const SQL_INSERT_QUESTION = 'INSERT INTO questions (questionId, question, quizId) VALUES (null,?,?)';
     const SQL_INSERT_ANSWER = 'INSERT INTO answers (answerId, answer, isCorrect) VALUES (null,?,?)';
     const SQL_INSERT_QUESTION_ANSWERS = 'INSERT INTO questions_answers (id, questionId, answerId) VALUES (null,?,?)';
 
@@ -27,7 +27,7 @@ class QuestionService
         $questionId = null;
         $affectedRowsQuestion = 0;
         if ($stmt = $this->mysqli->prepare(self::SQL_INSERT_QUESTION)) {
-            $stmt->bind_param("s", $question->getQuestion());
+            $stmt->bind_param("si", $question->getQuestion(), $question->getQuizId());
             if (!$stmt->execute()) $insertsSuccess = false;
             $affectedRowsQuestion = $this->mysqli->affected_rows;
             $questionId = $this->mysqli->insert_id;

@@ -5,16 +5,18 @@ class Question
     private $questionId;
     private $question;
     private $answers = array();
+    private $quizId;
 
-    public function __construct($content, $answers)
+    public function __construct($content, $answers, $quizId)
     {
         $this->question = $content;
         $this->answers = $answers;
+        $this->quizId = $quizId;
     }
 
-    public static function createQuizWithId($questionId, $content, $answers)
+    public static function createQuizWithId($questionId, $content, $answers, $quizId)
     {
-        $q = new Question($content, $answers);
+        $q = new Question($content, $answers, $quizId);
         $q->setQuestionId($questionId);
         return $q;
     }
@@ -49,5 +51,14 @@ class Question
         $this->answers = $answers;
     }
 
+    public function getQuizId()
+    {
+        return $this->quizId;
+    }
 
+    public function setQuizId($quizId)
+    {
+        $this->quizId = $quizId;
+    }
+    
 }

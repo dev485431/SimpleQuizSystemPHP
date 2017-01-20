@@ -45,6 +45,8 @@ class Config
     const QUESTION_LENGTH_MAX = 250;
     const ANSWER_LENGTH_MIN = 1;
     const ANSWER_LENGTH_MAX = 250;
+    const DEFAULT_START_QUESTION_NUM = 1;
+    const DEFAULT_QUESTIONS_PER_PAGE = 1;
 
     #Categories
     const CATEGORY_NAME_MIN = 1;

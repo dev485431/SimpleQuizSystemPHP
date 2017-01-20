@@ -7,16 +7,16 @@ class Question
     private $answers = array();
     private $quizId;
 
-    public function __construct($content, $answers, $quizId)
+    public function __construct($question, $answers, $quizId)
     {
-        $this->question = $content;
+        $this->question = $question;
         $this->answers = $answers;
         $this->quizId = $quizId;
     }
 
-    public static function createQuizWithId($questionId, $content, $answers, $quizId)
+    public static function createQuestionWithId($questionId, $question, $answers, $quizId)
     {
-        $q = new Question($content, $answers, $quizId);
+        $q = new Question($question, $answers, $quizId);
         $q->setQuestionId($questionId);
         return $q;
     }

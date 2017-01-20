@@ -5,12 +5,14 @@ class QuizController
 
     private $quizService;
     private $categoryService;
+    private $questionService;
     private $formValidation;
 
     public function __construct()
     {
         $this->quizService = new QuizService();
         $this->categoryService = new CategoryService();
+        $this->questionService = new QuestionService();
         $this->formValidation = new FormValidation();
     }
 
@@ -63,9 +65,17 @@ class QuizController
         require_once('views/quiz/add_quiz.php');
     }
 
-    public function startQuiz($quizId)
+    public function startQuiz()
     {
-
+        $quizId = null;
+        if (ValidationUtils::isSetAsInt($_GET['quizId'])) {
+            $quizId = $_GET['quizId'];
+        } else {
+            call('pages', 'error');
+        }
+        $questionNumber = ValidationUtils::isSetAsInt($_GET['currentQuestion']) ? $_GET['currentQuestion'] : Config::DEFAULT_START_QUESTION_NUM;
+        $questions = $this->questionService->getQuestionsByNumberAndQuizId($questionNumber, $quizId);
+        require_once('views/quiz/quiz_question.php');
     }
 
 }

@@ -7,6 +7,8 @@ class QuestionService
     const SQL_INSERT_ANSWER = 'INSERT INTO answers (answerId, answer, isCorrect, questionId) VALUES (null,?,?,?)';
     const SQL_INSERT_QUESTION_ANSWERS = 'INSERT INTO questions_answers (id, questionId, answerId) VALUES (null,?,?)';
     const SQL_SELECT_QUESTIONS_BY_QUIZ_ID = 'SELECT * FROM questions WHERE quizId=?';
+    const SQL_SELECT_ANSWERS_BY_QUESTION_ID = 'SELECT * FROM answers WHERE questionId=?';
+    const SQL_LIMIT_OFFSET = " LIMIT ? OFFSET ?";
 
     private $mysqli;
 
@@ -53,9 +55,40 @@ class QuestionService
             false : true;
     }
 
-    public function getQuestionsAndAnswersByQuizId($quizId)
+    public function getQuestionsByNumberAndQuizId($questionNumber, $quizId)
     {
+        $questions = array();
+        if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_QUESTIONS_BY_QUIZ_ID . self::SQL_LIMIT_OFFSET)) {
+            $questionsPerPage = Config::DEFAULT_QUESTIONS_PER_PAGE;
+            $stmt->bind_param("iii", $quizId, $questionsPerPage, DbUtils::calculateSqlQuestionOffset($questionNumber));
+            $stmt->execute();
+            $stmt->bind_result($db_questionId, $db_question, $db_quizId);
+            while ($stmt->fetch()) {
+                array_push($questions, Question::createQuestionWithId($db_questionId, $db_question, [], $db_quizId));
+            }
+            $stmt->close();
 
+            foreach ($questions as $question) {
+                $db_answers = $this->getAnswersByQuestionId($question->getQuestionId());
+                $question->setAnswers($db_answers);
+            }
+        }
+        return $questions;
+    }
+
+    private function getAnswersByQuestionId($questionId)
+    {
+        $answers = array();
+        if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_ANSWERS_BY_QUESTION_ID)) {
+            $stmt->bind_param("i", $questionId);
+            $stmt->execute();
+            $stmt->bind_result($db_answerId, $db_answer, $db_isCorrect, $db_questionId);
+            while ($stmt->fetch()) {
+                array_push($answers, Answer::createAnswerWithIdAndQuestionId($db_answerId, $db_answer, $db_isCorrect, $db_questionId));
+            }
+            $stmt->close();
+        }
+        return $answers;
     }
 
 }

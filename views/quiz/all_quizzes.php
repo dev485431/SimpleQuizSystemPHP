@@ -17,7 +17,7 @@ foreach ($quizzes as $quiz) {
         <p class="text-info">Number of questions:
             <mark><?php echo $quizService->getNumberOfQuizQuestions($quiz->getQuizId()); ?></mark>
         </p>
-        <p class="text-info">You top score:
+        <p class="text-info">Your top score:
             <mark>
                 <?php
                 $userScore = $scoreService->getTopScoreByUserIdAndQuizId($_SESSION['userId'], $quiz->getQuizId());

@@ -1,9 +1,11 @@
 <?php
 $controllers = array('pages' => ['home', 'error', 'mainMenu'],
     'security' => ['signUp', 'signIn', 'logOut'],
-    'quiz' => ['showAllQuizzes', 'showQuizDetails', 'addQuiz', 'startQuiz'],
+    'quiz' => ['showAllQuizzes', 'showQuizDetails', 'addQuiz', 'doQuiz'],
     'question' => ['addQuestion'],
-    'category' => ['addCategory'],);
+    'category' => ['addCategory'],
+    'score' => ['quizScores']
+);
 
 if (array_key_exists($controller, $controllers)) {
     if (in_array($action, $controllers[$controller])) {
@@ -37,6 +39,7 @@ function call($controller, $action)
             require_once('service/quiz_service.php');
             require_once('service/category_service.php');
             require_once('service/question_service.php');
+            require_once('service/score_service.php');
             require_once('validation/form_validation.php');
             require_once('utils/validation_utils.php');
             $controller = new QuizController();
@@ -57,6 +60,12 @@ function call($controller, $action)
             require_once('validation/form_validation.php');
             require_once('utils/validation_utils.php');
             $controller = new CategoryController();
+            break;
+        case 'score':
+            require_once('models/top_score.php');
+            require_once('service/score_service.php');
+            require_once('utils/validation_utils.php');
+            $controller = new ScoreController();
             break;
     }
 

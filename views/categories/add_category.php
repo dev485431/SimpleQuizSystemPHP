@@ -1,3 +1,7 @@
+<?php
+require_once('views/common/session_auth.php');
+?>
+
 <h1>Add category</h1>
 
 <form action="?controller=category&action=addCategory" method="post">

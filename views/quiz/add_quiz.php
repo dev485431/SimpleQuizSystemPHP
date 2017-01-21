@@ -1,3 +1,7 @@
+<?php
+require_once('views/common/session_auth.php');
+?>
+
 <h1>Add new quiz</h1>
 
 

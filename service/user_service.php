@@ -18,14 +18,13 @@ class UserService
 
     public function addUser(User $user)
     {
-        $affectedRows = 0;
         if ($stmt = $this->mysqli->prepare(self::SQL_INSERT_USER)) {
             $stmt->bind_param("sss", $user->getUsername(), $user->getPassword(), $user->getRole());
             $stmt->execute();
-            $affectedRows = $this->mysqli->affected_rows;
+            $userId = $this->mysqli->insert_id;
             $stmt->close();
         }
-        return ($affectedRows === 0) ? false : true;
+        return $userId;
     }
 
     public function usernameExists($username)
@@ -54,7 +53,7 @@ class UserService
             $stmt->fetch();
             $stmt->close();
         }
-        return $db_password === $password ? new User($db_username, $db_password, $db_role) : null;
+        return $db_password === $password ? User::createUserWithId($db_userId, $db_username, $db_password, $db_role) : null;
     }
 
 }

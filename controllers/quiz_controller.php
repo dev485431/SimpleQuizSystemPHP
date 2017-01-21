@@ -6,6 +6,7 @@ class QuizController
     private $quizService;
     private $categoryService;
     private $questionService;
+    private $scoreService;
     private $formValidation;
 
     public function __construct()
@@ -13,11 +14,13 @@ class QuizController
         $this->quizService = new QuizService();
         $this->categoryService = new CategoryService();
         $this->questionService = new QuestionService();
+        $this->scoreService = new ScoreService();
         $this->formValidation = new FormValidation();
     }
 
     public function showAllQuizzes()
     {
+        $scoreService = $this->scoreService;
         $pageNumber = Config::PAGINATION_START_PAGE;
         $numberOfPages = DbUtils::calculateNumberOfPages($this->quizService->getAllQuizzesCount(), Config::PAGINATION_ITEMS_PER_PAGE);
         if (ValidationUtils::isSetAsInt($_GET['page']) && $_GET['page'] >= Config::PAGINATION_START_PAGE && $_GET['page'] <= $numberOfPages
@@ -65,7 +68,7 @@ class QuizController
         require_once('views/quiz/add_quiz.php');
     }
 
-    public function startQuiz()
+    public function doQuiz()
     {
         $quizId = null;
         if (ValidationUtils::isSetAsInt($_GET['quizId'])) {
@@ -73,7 +76,31 @@ class QuizController
         } else {
             call('pages', 'error');
         }
-        $questionNumber = ValidationUtils::isSetAsInt($_GET['questionNumber']) ? $_GET['questionNumber'] : Config::DEFAULT_START_QUESTION_NUM;
+
+        $numberOfQuestions = $this->quizService->getNumberOfQuizQuestions($quizId);
+        $questionNumber = ValidationUtils::isSetAsInt($_GET['questionNumber']) && $_GET['questionNumber'] >= 1 ? $_GET['questionNumber'] : Config::DEFAULT_START_QUESTION_NUM;
+        if ($questionNumber == Config::DEFAULT_START_QUESTION_NUM) {
+            $_SESSION['currentScore'] = 0;
+        }
+
+        if (isset($_POST['answer']) && !ValidationUtils::isEmpty($_POST['answer'])) {
+            $selectedAnswerId = $_POST['answer'];
+            $previousQuestion = $this->questionService->getQuestionByNumberAndQuizId($questionNumber - 1, $quizId);
+            foreach ($previousQuestion->getAnswers() as $answer) {
+                if ($selectedAnswerId == $answer->getAnswerId() && $answer->getIsCorrect() == true) {
+                    $_SESSION['currentScore'] += 1;
+                }
+            }
+        }
+
+        if ($questionNumber > $numberOfQuestions) {
+            $quiz = $this->quizService->getQuizById($quizId);
+            $this->scoreService->saveUserScore($_SESSION['userId'], $quizId, $_SESSION['currentScore']);
+            require_once('views/quiz/quiz_congrats.php');
+            $_SESSION['currentScore'] = 0;
+            exit();
+        }
+
         $question = $this->questionService->getQuestionByNumberAndQuizId($questionNumber, $quizId);
         require_once('views/quiz/quiz_question.php');
     }

@@ -4,6 +4,7 @@ class Config
 {
 
     const APP_ROOT = '/php_mvc/';
+    const APP_LOGIN = '/php_mvc/?controller=security&action=signIn';
     const PAGE_TITLE = 'Quiz World';
 
     #Database config

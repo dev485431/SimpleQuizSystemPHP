@@ -1,3 +1,7 @@
+<?php
+require_once('views/common/session_auth.php');
+?>
+
 <h2>Quizzes list</h2>
 
 <?php
@@ -13,14 +17,23 @@ foreach ($quizzes as $quiz) {
         <p class="text-info">Number of questions:
             <mark><?php echo $quizService->getNumberOfQuizQuestions($quiz->getQuizId()); ?></mark>
         </p>
-        <p class="text-info">You score:
-            <mark>0.0</mark>
+        <p class="text-info">You top score:
+            <mark>
+                <?php
+                $userScore = $scoreService->getTopScoreByUserIdAndQuizId($_SESSION['userId'], $quiz->getQuizId());
+                if (!ValidationUtils::isEmpty($userScore)) {
+                    echo $userScore;
+                } else {
+                    echo 0;
+                }
+                ?>
+            </mark>
         </p>
         <div class="well white-bg-well"><?php echo $quiz->getDescription() ?></div>
         <input type="hidden" name="quizId" value="<?php echo $quiz->getQuizId() ?>"/>
 
         <div>
-            <a href='?controller=quiz&action=startQuiz&quizId=<?php echo $quiz->getQuizId() ?>'
+            <a href='?controller=quiz&action=doQuiz&quizId=<?php echo $quiz->getQuizId() ?>'
                class="btn btn-success">
 		<span class="glyphicon glyphicon-play"
               aria-hidden="true"></span>
@@ -36,7 +49,7 @@ foreach ($quizzes as $quiz) {
             <a href='?controller=score&action=quizScores&quizId=<?php echo $quiz->getQuizId() ?>'
                class="btn btn-warning">
                 <span class="glyphicon glyphicon glyphicon-tasks" aria-hidden="true"></span>
-                Top scores
+                Top 10 scores
             </a>
 
             <?php
@@ -54,12 +67,6 @@ foreach ($quizzes as $quiz) {
                     <ul class="dropdown-menu" aria-labelledby="adminDropDown">
                         <li><a href="?controller=question&action=addQuestion&quizId=<?php echo $quiz->getQuizId(); ?>">Add
                                 question</a></li>
-                        <li><a href="?controller=quiz&action=editQuiz&quizId=<?php echo $quiz->getQuizId(); ?>">Edit</a>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="?controller=quiz&action=deleteQuiz&quizId=<?php echo $quiz->getQuizId(); ?>">Delete</a>
-                        </li>
                     </ul>
                 </div>
 

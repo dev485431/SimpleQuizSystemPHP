@@ -1,3 +1,7 @@
+<?php
+require_once('views/common/session_auth.php');
+?>
+
 <h2>
     <?php echo $quiz->getTitle() ?>
 </h2>
@@ -10,7 +14,7 @@
 <input type="hidden" name="quizId" value="<?php echo $quiz->getQuizId() ?>"/>
 
 <p>
-    <a href='?controller=quiz&action=quizStart&quizId=<?php echo $quiz->getQuizId() ?>'
+    <a href='?controller=quiz&action=doQuiz&quizId=<?php echo $quiz->getQuizId() ?>'
        class="btn btn-success">
 		<span class="glyphicon glyphicon-play"
               aria-hidden="true"></span>

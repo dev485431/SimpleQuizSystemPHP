@@ -90,4 +90,8 @@ class QuestionService
         return $answers;
     }
 
+    public function getNumberOfQuestionsByQuizId($quizId) {
+
+    }
+
 }

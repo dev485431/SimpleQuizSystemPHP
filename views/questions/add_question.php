@@ -1,3 +1,7 @@
+<?php
+require_once('views/common/session_auth.php');
+?>
+
 <h2>Adding question</h2>
 
 <div>

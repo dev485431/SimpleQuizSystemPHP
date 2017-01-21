@@ -25,6 +25,7 @@ class SecurityController
                 if ($user) {
                     $_SESSION['username'] = $user->getUsername();
                     $_SESSION['userRole'] = $user->getRole();
+                    $_SESSION['userId'] = $user->getUserId();
                     MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.log.in'));
                     RedirectionUtils::redirectTo(Config::APP_ROOT . RedirectionUtils::URL_PATH_MAIN_MENU);
                 } else {
@@ -70,9 +71,11 @@ class SecurityController
             } else {
                 $newUser = new User($username, $password, Config::DEFAULT_ROLE);
 
-                if ($this->userService->addUser($newUser)) {
+                $userId = null;
+                if ($userId = $this->userService->addUser($newUser)) {
                     $_SESSION['username'] = $newUser->getUsername();
                     $_SESSION['userRole'] = $newUser->getRole();
+                    $_SESSION['userId'] = $userId;
                     MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.added.user'));
                     RedirectionUtils::redirectTo(Config::APP_ROOT);
                 } else {

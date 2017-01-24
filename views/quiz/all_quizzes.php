@@ -8,7 +8,7 @@ require_once('views/common/session_auth.php');
 
 foreach ($quizzes as $quiz) {
 
-    if ($quiz->getIsEnabled()) {
+    if ($quiz->getIsEnabled() || $_SESSION['userRole'] == 'admin') {
         ?>
 
         <h2>
@@ -36,6 +36,23 @@ foreach ($quizzes as $quiz) {
                 ?>
             </mark>
         </p>
+
+        <?php
+        if ($_SESSION['userRole'] == 'admin') {
+            ?>
+            <p class="text-info">
+                <mark>
+                    <?php if ($quiz->getIsEnabled()) {
+                        echo 'Is <strong>enabled</strong>';
+                    } else {
+                        echo 'Is <strong>disabled</strong>';
+                    } ?>
+                </mark>
+            </p>
+            <?php
+        }
+        ?>
+
         <div class="well white-bg-well"><?php echo $quiz->getDescription() ?></div>
         <input type="hidden" name="quizId" value="<?php echo $quiz->getQuizId() ?>"/>
 

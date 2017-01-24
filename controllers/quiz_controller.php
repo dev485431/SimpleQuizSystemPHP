@@ -21,6 +21,7 @@ class QuizController
     public function showAllQuizzes()
     {
         $scoreService = $this->scoreService;
+        $categoryService = $this->categoryService;
         $pageNumber = Config::PAGINATION_START_PAGE;
         $numberOfPages = DbUtils::calculateNumberOfPages($this->quizService->getAllQuizzesCount(), Config::PAGINATION_ITEMS_PER_PAGE);
         if (ValidationUtils::isSetAsInt($_GET['page']) && $_GET['page'] >= Config::PAGINATION_START_PAGE && $_GET['page'] <= $numberOfPages
@@ -53,7 +54,7 @@ class QuizController
             $quizCategoryId = $_POST['quizCategoryId'];
             $quizDescription = $_POST['quizDescription'];
 
-            if ($this->formValidation->validateAddQuizForm($quizTitle, $quizDescription, $quizCategoryId)) {
+            if ($this->formValidation->validateQuizForm($quizTitle, $quizDescription, $quizCategoryId)) {
                 $newQuiz = new Quiz($quizTitle, $quizDescription, Config::DEFAULT_QUIZ_ENABLED, $quizCategoryId);
 
                 if ($this->quizService->addQuiz($newQuiz)) {
@@ -103,6 +104,41 @@ class QuizController
 
         $question = $this->questionService->getQuestionByNumberAndQuizId($questionNumber, $quizId);
         require_once('views/quiz/quiz_question.php');
+    }
+
+    public function editQuiz()
+    {
+        $quizId = null;
+        if (ValidationUtils::isSetAsInt($_GET['quizId'])) {
+            $quizId = $_GET['quizId'];
+        } else {
+            call('pages', 'error');
+        }
+        $editedQuiz = $this->quizService->getQuizById($quizId);
+        $categories = $this->categoryService->getAllCategories();
+
+        if (isset($_POST['quizTile']) || isset($_POST['quizCategoryId']) || isset($_POST['quizDescription']) || isset
+            ($_POST['quizIsEnabled'])
+        ) {
+            $quizTitle = $_POST['quizTile'];
+            $quizCategoryId = $_POST['quizCategoryId'];
+            $quizDescription = $_POST['quizDescription'];
+            $quizIsEnabled = isset($_POST['quizIsEnabled']) ? true : false;
+
+            if ($this->formValidation->validateQuizForm($quizTitle, $quizDescription, $quizCategoryId)) {
+                $updatedQuiz = Quiz::createQuizWithId($quizId, $quizTitle, $quizDescription, $quizIsEnabled, $quizCategoryId);
+
+                if ($this->quizService->editQuiz($updatedQuiz)) {
+                    MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.edited.quiz'));
+                    RedirectionUtils::redirectTo(Config::APP_ROOT);
+                } else {
+                    MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.editing.quiz'));
+                    RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
+                }
+            }
+        }
+
+        require_once('views/quiz/edit_quiz.php');
     }
 
 }

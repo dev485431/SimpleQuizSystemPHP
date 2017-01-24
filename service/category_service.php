@@ -3,6 +3,7 @@
 class CategoryService
 {
     const SQL_SELECT_CATEGORIES = 'SELECT * FROM categories';
+    const SQL_SELECT_CATEGORY_BY_QUIZ_ID = 'SELECT * FROM categories WHERE categoryId=?';
     const SQL_INSERT_CATEGORY = 'INSERT INTO categories (categoryId, name, description) VALUES (null,?,?)';
     const SQL_SELECT_CATEGORY_BY_NAME = "SELECT * FROM categories WHERE name=?";
 
@@ -55,6 +56,21 @@ class CategoryService
             $stmt->close();
         }
         return ($numRows === 0) ? false : true;
+    }
+
+    public function getCategoryById($categoryId)
+    {
+        $db_categoryId = null;
+        $db_name = null;
+        $db_description = null;
+        if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_CATEGORY_BY_QUIZ_ID)) {
+            $stmt->bind_param("i", $categoryId);
+            $stmt->execute();
+            $stmt->bind_result($db_categoryId, $db_name, $db_description);
+            $stmt->fetch();
+            $stmt->close();
+        }
+        return Category::createCategoryWithId($db_categoryId, $db_name, $db_description);
     }
 
 }

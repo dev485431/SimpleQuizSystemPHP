@@ -7,6 +7,7 @@ class QuizService
     const SQL_BY_QUIZ_ID = " WHERE quizId=?";
     const SQL_ADD_QUIZ = "INSERT INTO quizzes (quizId, title, description, isEnabled, categoryId) VALUES (null,?,?,?,?)";
     const SQL_GET_NUMBER_OF_QUESTIONS = 'SELECT COUNT(*) FROM questions WHERE quizId=?';
+    const SQL_EDIT_QUIZ = "UPDATE quizzes SET title=?, description=?, isEnabled=?, categoryId=? WHERE quizId=?";
 
     private $mysqli;
 
@@ -85,6 +86,19 @@ class QuizService
             $stmt->close();
         }
         return $questionsCount;
+    }
+
+    public function editQuiz(Quiz $quiz)
+    {
+        $affectedRows = 0;
+        if ($stmt = $this->mysqli->prepare(self::SQL_EDIT_QUIZ)) {
+            $stmt->bind_param("ssiii", $quiz->getTitle(), $quiz->getDescription(), $quiz->getIsEnabled(),
+                $quiz->getCategoryId(), $quiz->getQuizId());
+            $stmt->execute();
+            $affectedRows = $this->mysqli->affected_rows;
+            $stmt->close();
+        }
+        return ($affectedRows === 0) ? false : true;
     }
 
 }

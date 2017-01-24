@@ -2,7 +2,7 @@
 
 class FormValidation
 {
-    public function validateAddQuizForm($quizTitle, $quizDescription, $quizCategoryId)
+    public function validateQuizForm($quizTitle, $quizDescription, $quizCategoryId)
     {
         if (ValidationUtils::isEmpty($quizTitle) || ValidationUtils::isEmpty($quizCategoryId) || ValidationUtils::isEmpty
             ($quizDescription)
@@ -19,10 +19,10 @@ class FormValidation
         ) {
             MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.description.wrong.length'));
             RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-        } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE, $quizTitle)) {
+        } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE_SPACE, $quizTitle)) {
             MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.name.wrong.pattern'));
             RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
-        } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE, $quizDescription)) {
+        } else if (!ValidationUtils::matchesPattern(ValidationUtils::REGEXP_ALPHANUM_DASH_UNDERSCORE_SPACE, $quizDescription)) {
             MessagesUtils::setMessage(Messages::STATUS_ERROR, Messages::get('error.quiz.description.wrong.pattern'));
             RedirectionUtils::refreshPage(RedirectionUtils::REFRESH_TIME_ZERO);
         } else if (!ValidationUtils::isSetAsInt($quizCategoryId)) {

@@ -18,7 +18,7 @@ class Messages
         'error.username.taken' => 'This username is already taken',
         'error.username.wrong.length' => 'Username length must be between ' . Config::MIN_USERNAME_LENGTH . ' and ' .
             Config::MAX_USERNAME_LENGTH . ' characters',
-        'error.username.wrong.pattern' => 'Username can contain only letters, numbers, underscores and dashes',
+        'error.username.wrong.pattern' => 'Username can contain only letters, numbers, underscores, dashes and spaces',
         'error.password.wrong.length' => 'Password length must be between ' . Config::MIN_PASS_LENGTH . ' and ' .
             Config::MAX_PASS_LENGTH . ' characters',
         'error.password.wrong.pattern' => 'Password must contain at least one lowercase character, uppercase character, digit and special character',
@@ -26,8 +26,8 @@ class Messages
             Config::QUIZ_NAME_MAX . ' characters',
         'error.quiz.description.wrong.length' => 'Quiz description must be between' . Config::QUIZ_DESCRIPTION_MIN . ' and ' .
             Config::QUIZ_DESCRIPTION_MAX . ' characters',
-        'error.quiz.name.wrong.pattern' => 'Quiz name can contain only letters, numbers, underscores and dashes',
-        'error.quiz.description.wrong.pattern' => 'Quiz description can contain only letters, numbers, underscores and dashes',
+        'error.quiz.name.wrong.pattern' => 'Quiz name can contain only letters, numbers, underscores, dashes and spaces',
+        'error.quiz.description.wrong.pattern' => 'Quiz description can contain only letters, numbers, underscores, dashes and spaces',
         'error.quiz.category.not.integer' => 'Invalid quiz category',
         'success.added.quiz' => 'New quiz was added successfully',
         'error.adding.quiz' => 'Unable to add new quiz. Try again later.',
@@ -44,6 +44,8 @@ class Messages
         'error.category.name.exists' => 'This category name already exists',
         'success.added.category' => 'New category was added successfully',
         'error.adding.category' => 'Unable to add new category',
+        'success.edited.quiz' => 'Successfully edited the quiz',
+        'error.editing.quiz' => 'Unable to edit the quiz',
     );
 
     public static function get($key)

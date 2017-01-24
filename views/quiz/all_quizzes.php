@@ -14,8 +14,15 @@ foreach ($quizzes as $quiz) {
         <h2>
             <a href="?controller=quiz&action=showQuizDetails&quizId=<?php echo $quiz->getQuizId() ?>"><?php echo $quiz->getTitle() ?></a>
         </h2>
+        <p class="text-info">Category:
+            <mark>
+                <?php echo $categoryService->getCategoryById($quiz->getCategoryId())->getName() ?>
+            </mark>
+        </p>
         <p class="text-info">Number of questions:
-            <mark><?php echo $quizService->getNumberOfQuizQuestions($quiz->getQuizId()); ?></mark>
+            <mark>
+                <?php echo $questionsNumber = $quizService->getNumberOfQuizQuestions($quiz->getQuizId()); ?>
+            </mark>
         </p>
         <p class="text-info">Your top score:
             <mark>
@@ -34,7 +41,7 @@ foreach ($quizzes as $quiz) {
 
         <div>
             <a href='?controller=quiz&action=doQuiz&quizId=<?php echo $quiz->getQuizId() ?>'
-               class="btn btn-success">
+               class="btn btn-success <?php if ($questionsNumber == 0) echo 'disabled' ?>">
 		<span class="glyphicon glyphicon-play"
               aria-hidden="true"></span>
                 Start
@@ -49,7 +56,7 @@ foreach ($quizzes as $quiz) {
             <a href='?controller=score&action=quizScores&quizId=<?php echo $quiz->getQuizId() ?>'
                class="btn btn-warning">
                 <span class="glyphicon glyphicon glyphicon-tasks" aria-hidden="true"></span>
-                Top 10 scores
+                Top 10
             </a>
 
             <?php
@@ -67,6 +74,8 @@ foreach ($quizzes as $quiz) {
                     <ul class="dropdown-menu" aria-labelledby="adminDropDown">
                         <li><a href="?controller=question&action=addQuestion&quizId=<?php echo $quiz->getQuizId(); ?>">Add
                                 question</a></li>
+                        <li><a href="?controller=quiz&action=editQuiz&quizId=<?php echo $quiz->getQuizId(); ?>">Edit quiz</a>
+                        </li>
                     </ul>
                 </div>
 

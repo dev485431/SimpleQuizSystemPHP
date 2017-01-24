@@ -14,7 +14,8 @@ require_once('views/common/session_auth.php');
     </h3>
     <h3>
         Your score is:
-        <mark><?php echo $_SESSION['currentScore']; ?></mark>
+        <mark><?php echo $_SESSION['currentScore']; ?> out
+            of <?php echo $quizService->getNumberOfQuizQuestions($quiz->getQuizId()); ?></mark>
     </h3>
     <br><br>
     <a href="<?php echo Config::APP_ROOT; ?>" class="btn btn-info" role="button">Back to main page</a>

@@ -99,6 +99,7 @@ class QuizController
 
         if ($questionNumber > $numberOfQuestions) {
             $quiz = $this->quizService->getQuizById($quizId);
+            $quizService = $this->quizService;
             $this->scoreService->saveUserScore($_SESSION['userId'], $quizId, $_SESSION['currentScore']);
             require_once('views/quiz/quiz_congrats.php');
             $_SESSION['currentScore'] = 0;

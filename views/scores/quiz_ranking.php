@@ -53,6 +53,7 @@ if (empty($quizzes)) {
 }
 ?>
 
+<!-- pagination -->
 
 <br><br>
 <div class="row">
@@ -135,7 +136,6 @@ if (empty($quizzes)) {
 
     </div>
 </div>
-
 
 
 <br><br>

@@ -15,7 +15,7 @@ require_once('views/common/session_auth.php');
         </small>
         <input class="form-control" type="text" id="quizTile" name="quizTile"
                value="<?php if (isset($_POST['quizTile']))
-                   echo $_POST['quizTile']; ?>"/>
+                   echo $_POST['quizTile']; ?>" placeholder="Name"/>
     </div>
 
     <div class="form-group">
@@ -36,7 +36,9 @@ require_once('views/common/session_auth.php');
             Config::QUIZ_DESCRIPTION_MAX; ?>)
         </small>
         <textarea class="form-control" rows="5" id="quizDescription"
-                  name="quizDescription"><?php if (isset($_POST['quizDescription'])) echo $_POST['quizDescription']; ?></textarea>
+                  name="quizDescription"
+                  placeholder="Description"><?php if (isset($_POST['quizDescription'])) echo $_POST['quizDescription'];
+            ?></textarea>
     </div>
 
     <div class="form-group">

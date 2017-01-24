@@ -4,9 +4,9 @@ class DbUtils
 {
     const ONE = 1;
 
-    public static function calculateSqlPageOffset($pageNumber)
+    public static function calculateSqlPageOffset($pageNumber, $pageSize)
     {
-        return ($pageNumber - self::ONE) * Config::PAGINATION_ITEMS_PER_PAGE;
+        return ($pageNumber - self::ONE) * $pageSize;
     }
 
     public static function calculateNumberOfPages($numberOfItems, $pageSize)

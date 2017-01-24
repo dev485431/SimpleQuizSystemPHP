@@ -25,7 +25,7 @@ class QuizService
     {
         $quizzes = array();
         if ($stmt = $this->mysqli->prepare(self::SQL_SELECT_QUIZZES . self::SQL_LIMIT_OFFSET)) {
-            $stmt->bind_param("ii", $itemsPerPage, DbUtils::calculateSqlPageOffset($pageNumber));
+            $stmt->bind_param("ii", $itemsPerPage, DbUtils::calculateSqlPageOffset($pageNumber, $itemsPerPage));
             $stmt->execute();
             $stmt->bind_result($quizId, $title, $description, $isEnabled, $categoryId);
             while ($stmt->fetch()) {

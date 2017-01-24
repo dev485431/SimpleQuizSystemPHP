@@ -3,8 +3,8 @@
 class Config
 {
 
-    const APP_ROOT = '/php_mvc/';
-    const APP_LOGIN = '/php_mvc/?controller=security&action=signIn';
+    const APP_ROOT = '/tk_php_quiz_world/';
+    const APP_LOGIN = '/tk_php_quiz_world/?controller=security&action=signIn';
     const PAGE_TITLE = 'Quiz World';
 
     #Database config

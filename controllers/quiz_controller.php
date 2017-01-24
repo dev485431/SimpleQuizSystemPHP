@@ -49,13 +49,16 @@ class QuizController
     {
         $categories = $this->categoryService->getAllCategories();
 
-        if (isset($_POST['quizTile']) || isset($_POST['quizCategoryId']) || isset($_POST['quizDescription'])) {
+        if (isset($_POST['quizTile']) || isset($_POST['quizCategoryId']) || isset($_POST['quizDescription']) || isset
+            ($_POST['quizIsEnabled'])
+        ) {
             $quizTitle = $_POST['quizTile'];
             $quizCategoryId = $_POST['quizCategoryId'];
             $quizDescription = $_POST['quizDescription'];
+            $quizIsEnabled = isset($_POST['quizIsEnabled']) ? true : false;
 
             if ($this->formValidation->validateQuizForm($quizTitle, $quizDescription, $quizCategoryId)) {
-                $newQuiz = new Quiz($quizTitle, $quizDescription, Config::DEFAULT_QUIZ_ENABLED, $quizCategoryId);
+                $newQuiz = new Quiz($quizTitle, $quizDescription, $quizIsEnabled, $quizCategoryId);
 
                 if ($this->quizService->addQuiz($newQuiz)) {
                     MessagesUtils::setMessage(Messages::STATUS_SUCCESS, Messages::get('success.added.quiz'));

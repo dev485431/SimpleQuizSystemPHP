@@ -22,7 +22,6 @@ class Config
     const MAX_PASS_LENGTH = 25;
 
     #Quiz settings
-    const DEFAULT_QUIZ_ENABLED = true;
     const QUIZ_NAME_MIN = 1;
     const QUIZ_NAME_MAX = 25;
     const QUIZ_DESCRIPTION_MIN = 1;

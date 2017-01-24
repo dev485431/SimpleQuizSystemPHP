@@ -39,6 +39,12 @@ require_once('views/common/session_auth.php');
                   name="quizDescription"><?php if (isset($_POST['quizDescription'])) echo $_POST['quizDescription']; ?></textarea>
     </div>
 
+    <div class="form-group">
+        <label for="quizIsEnabled">Is enabled?</label>
+        <input type="checkbox" id="quizIsEnabled"
+               name="quizIsEnabled"><br>
+    </div>
+
     <div class="text-center">
         <input class="btn btn-primary" type="submit" value="Add quiz"/>
     </div>

@@ -74,7 +74,8 @@ foreach ($quizzes as $quiz) {
                     <ul class="dropdown-menu" aria-labelledby="adminDropDown">
                         <li><a href="?controller=question&action=addQuestion&quizId=<?php echo $quiz->getQuizId(); ?>">Add
                                 question</a></li>
-                        <li><a href="?controller=quiz&action=editQuiz&quizId=<?php echo $quiz->getQuizId(); ?>">Edit quiz</a>
+                        <li><a href="?controller=quiz&action=editQuiz&quizId=<?php echo $quiz->getQuizId(); ?>">Edit
+                                quiz</a>
                         </li>
                     </ul>
                 </div>

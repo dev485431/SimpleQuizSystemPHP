@@ -110,7 +110,7 @@ foreach ($quizzes as $quiz) {
 
 ?>
 
-</br></br>
+<br><br>
 <div class="row">
     <div class="col-xs-1">
 

@@ -1,3 +1,7 @@
+<?php
+require_once('views/common/session_auth.php');
+?>
+
 <div class="row text-center">
     <h2>Top 10 quiz scores</h2>
     <h3><?php if (!empty($topScores)) echo $topScores[0]->getTitle() ?></h3>

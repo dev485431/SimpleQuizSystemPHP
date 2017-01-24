@@ -4,7 +4,7 @@ $controllers = array('pages' => ['home', 'error', 'mainMenu'],
     'quiz' => ['showAllQuizzes', 'showQuizDetails', 'addQuiz', 'doQuiz', 'editQuiz'],
     'question' => ['addQuestion'],
     'category' => ['addCategory'],
-    'score' => ['quizScores']
+    'score' => ['quizScores', 'showRanking']
 );
 
 if (array_key_exists($controller, $controllers)) {
@@ -63,7 +63,9 @@ function call($controller, $action)
             break;
         case 'score':
             require_once('models/top_score.php');
+            require_once('models/quiz.php');
             require_once('service/score_service.php');
+            require_once('service/quiz_service.php');
             require_once('utils/validation_utils.php');
             $controller = new ScoreController();
             break;

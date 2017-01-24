@@ -45,7 +45,7 @@ class Messages
         'success.added.category' => 'New category was added successfully',
         'error.adding.category' => 'Unable to add new category',
         'success.edited.quiz' => 'Successfully edited the quiz',
-        'error.editing.quiz' => 'Unable to edit the quiz',
+        'error.editing.quiz' => 'Unable to edit the quiz. You need to change some data.',
     );
 
     public static function get($key)

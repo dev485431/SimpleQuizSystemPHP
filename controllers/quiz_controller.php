@@ -29,7 +29,7 @@ class QuizController
             $pageNumber = $_GET['page'];
         }
         $quizService = $this->quizService;
-        $quizzes = $this->quizService->getQuizzesByPageNumber($pageNumber);
+        $quizzes = $this->quizService->getQuizzesByPageNumber($pageNumber, Config::PAGINATION_ITEMS_PER_PAGE);
         require_once('views/quiz/all_quizzes.php');
     }
 

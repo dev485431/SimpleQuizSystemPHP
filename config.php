@@ -37,8 +37,9 @@ class Config
     const PAGINATION_ORDER = 'ASC';
     const PAGINATION_QUIZZES_ORDER_BY = '';
 
-    #Ranking
-    const RANKING_DEFAULT_LIMIT = 10;
+    #Ranking and quiz scores
+    const TOP_SCORES_FOR_QUIZ_LIMIT = 10;
+    const RANKING_ITEMS_PER_PAGE = 10;
 
     #Questions and answers
     const QUESTION_LENGTH_MIN = 1;

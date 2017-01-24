@@ -32,4 +32,10 @@ require_once('views/common/session_auth.php');
         Browse quizzes
     </a>
 
+    <a href='?controller=score&action=showRanking'
+       class="btn btn-warning">
+        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+        Raking
+    </a>
+
 </p>

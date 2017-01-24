@@ -8,9 +8,7 @@ require_once('views/common/session_auth.php');
 <p class="text-info">You score:
     <mark>0.0</mark>
 </p>
-<p>
 <div class="well white-bg-well"><?php echo $quiz->getDescription() ?></div>
-</p>
 <input type="hidden" name="quizId" value="<?php echo $quiz->getQuizId() ?>"/>
 
 <p>

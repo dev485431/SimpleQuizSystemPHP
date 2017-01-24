@@ -74,4 +74,4 @@ function call($controller, $action)
     $controller->{$action}();
 }
 
-?>
+

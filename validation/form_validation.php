@@ -32,7 +32,7 @@ class FormValidation
         return true;
     }
 
-    public function validateAddQuestionForm($question, $answer1, $answer2, $answer3, $correctAnswer)
+    public function validateAddQuestionForm($question, $answer1, $answer2, $answer3)
     {
         if (ValidationUtils::isEmpty($question) || ValidationUtils::isEmpty($answer1) || ValidationUtils::isEmpty
             ($answer2) || ValidationUtils::isEmpty($answer3)

@@ -31,7 +31,7 @@ class QuestionController
             $answer3 = $_POST['answer3'];
             $correctAnswer = $_POST['correctAnswer'];
 
-            if ($this->formValidation->validateAddQuestionForm($question, $answer1, $answer2, $answer3, $correctAnswer)) {
+            if ($this->formValidation->validateAddQuestionForm($question, $answer1, $answer2, $answer3)) {
                 $answers = array($answer1, $answer2, $answer3);
                 $a = null;
                 for ($i = 0; $i < sizeof($answers); $i++) {

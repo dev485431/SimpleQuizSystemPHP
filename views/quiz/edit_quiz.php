@@ -23,7 +23,7 @@ require_once('views/common/session_auth.php');
 
 <form action="?controller=quiz&action=editQuiz&quizId=<?php echo $editedQuiz->getQuizId() ?>" method="post">
     <div class="form-group">
-        <label for="name">
+        <label for="quizTile">
             Name
         </label>
         <small class="form-text text-muted">(min <?php echo Config::QUIZ_NAME_MIN; ?>, max <?php echo
